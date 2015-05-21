@@ -6,10 +6,10 @@
 
 ## Introduction
 
-The HTTP Handler class (`Hazzard\Filepicker\Http\Handler`) handles incoming HTTP requests and sends a response back to 
+The HTTP Handler class (`src/Http/Handler.php`) handles incoming HTTP requests and sends a response back to 
 the client.
 
-The handler constructor takes as parameter an instance of `Hazzard\Filepicker\Uploader`. You can attach an listen for events and at the end handle the request and send a response.
+The handler constructor takes as parameter an instance of `src/Filepicker/Uploader.php` class. You can attach an listen for events and at the end handle the request and send a response.
 	
 	use Hazzard\Filepicker\Http\Event;
 	use Hazzard\Filepicker\Http\Handler;
@@ -28,34 +28,97 @@ The handler constructor takes as parameter an instance of `Hazzard\Filepicker\Up
 
 ## Events
 
-The object `$e` is an instance of `Hazzard\Filepicker\Http\Event` and is a used to pass data to the callback functions, cancel uploads, attach data, etc.
+The object `$e` is an instance of the `src/Filepicker/Http/Event.php` class and is a used to pass data to the callback functions, cancel uploads, attach data, etc.
 
-The event class has the following methods:
+The event `$e` has the following methods:
 
-- getFile() - Returns an instance of [File](https://github.com/symfony/HttpFoundation/blob/2.6/File/File.php) / [UploadedFile](https://github.com/symfony/HttpFoundation/blob/2.6/File/UploadedFile.php), both extending [SplFileInfo](http://php.net/manual/en/class.splfileinfo.php).
-- getImage() Returns an instance of [Image](https://github.com/Intervention/image/blob/master/src/Intervention/Image/Image.php), when available.
-- abort($error = null) - Abort the current event (upload, delete, crop, etc), you can pass a message.
-- getError() - Get the upload error message.
-- setFilename($filename, $originalExtension = true) - Change the filename when uploading a file.
-- setData($data) - Attach custom data to the file.
+### getFile
+
+Returns an instance of [UploadedFile](https://github.com/symfony/HttpFoundation/blob/2.6/File/UploadedFile.php) when the file is about to be uploaded (`upload.before` and `upload.error`) and [File](https://github.com/symfony/HttpFoundation/blob/2.6/File/File.php) after the file is uploaded. Both classes extend the  [SplFileInfo](http://php.net/manual/en/class.splfileinfo.php) class.
+
+	$file = $e->getFile();
+
+To access the `$file` properties use:
+	
+- `$file->getFilename()` — Gets the filename
+- `$file->getExtension()` — Gets the file extension
+- `$file->getSize()` — Gets file size
+- `$file->getMTime()` — Gets the last modified time
+- `$file->getRealPath()` — Gets absolute path to file
+
+_See [SplFileInfo](http://php.net/manual/en/class.splfileinfo.php) for all the available methods._
+
+> Notice: In the `upload.before` and `upload.error` events use:
+>  - `$file->getClientOriginalName()` instead of `$file->getFilename()`
+>  - `$file->getClientOriginalExtension()` instead of `$file->getExtension()`
+>  - `$file->getClientSize()` instead of `$file->getSize()`
+
+### abort
+
+Aborts the event from continuing executing.
+
+	$e->abort('Custom error message!');
+
+
+### setFilename
+
+Changes the save name of the file. Can be used in the `upload.before` and `crop.before` events.
+
+	$e->setFilename('custom_file_name');
+
+If you wish to change the extension too, set the second parameter to `false`.
+
+	$e->setFilename('custom_file_name.jpg', false);
+
+### setData 
+
+Attaches custom data to the file that will be available in the file response object.
+
+	$e->setData(array('file_id' => 123));
+
+### getImage
+
+Returns an instance of [Image](https://github.com/Intervention/image/blob/master/src/Intervention/Image/Image.php), if the file is an image. This method can be only used in the `crop.before` and `crop.after` events.
+
+	$image = $e->getImage();
+
+If you need the image instance in other events use something like this (make sure the file is actually an image):
+
+	$image = $handler->uploader->getImageManager()->make($e->getFile());
 
 ## Available Events
 
 ### upload.before
 
-### upload.error
+Event fired before the file upload starts. Use [abort](#abort) to cancel the file upload, [setFilename](#setFilename) to rename the file.
 
 ### upload.success
 
+Event fired for a successfully upload. Use [abort](#abort) to cancel and delete the uploaded file.
+
+### upload.fail
+
+Event fired for a failed upload. Use `$e->getError()` to get the error message and `$e->setError('Custom error message')` to set a custom error message.
+
 ### file.get
+
+Event fired on file access. Use [abort](#abort) to exclude the file from the response.
 
 ### file.download
 
+Event fired on file download. Use [abort](#abort) to cancel the download.
+
 ### file.delete
+
+Event fired on file deletion. Use [abort](#abort) to cancel the deletion.
 
 ### crop.before
 
+Event fired before the crop starts. 
+
 ### crop.after
+
+Event fired on crop completion. Use [getImage](#getImage) to get the image instance.
 
 ## RESTful API
 
@@ -87,7 +150,7 @@ The _File_ object is present in almost all responses and includes these properti
 
 To retrieve the list of files, send a GET request.
 
-The response will be a JSON object with a key called `files` containing an array of __File__ objects and another key called `total` with the total number of files. Optional include any of the parameters:
+The response will be a JSON object with a key called `files` containing an array of [File](#the-file-object) objects and another key called `total` with the total number of files. Optional include any of the parameters:
 
 - `limit` | _integer_ | Limit the returned files.
 - `offset` | _integer_ | Get files from the given offset.
@@ -96,7 +159,7 @@ The response will be a JSON object with a key called `files` containing an array
 
 To upload a file / files, send a POST request with the `file` parameter for a single file and `files[]` for multiple files.
 
-The response will be a JSON object with a key called `files`. The value of this will be an array of __File__ objects.
+The response will be a JSON object with a key called `files`. The value of this will be an array of [File](#the-file-object)  objects.
 
 ### Download a File
 
@@ -106,7 +169,7 @@ To download a file, send a GET request with the `file` parameter (the name of th
 
 To update an existing file, send a PUT request with the `file` parameter. By default method is used to crop images, so pass the `width`, `height` and `x`, `y` parameters.
 
-The response will be a JSON object with a key called `file`. The value of this will be _File_ object.
+The response will be a JSON object with a key called `file`. The value of this will be [File](#the-file-object)  object.
 
 ### Delete a File
 
