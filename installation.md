@@ -10,7 +10,8 @@
 
 - Edit `index.html` to set the [JavaScript options](configjs.md) you want and `uploader/index.php` to set the [PHP options](configphp.md) you want.
 
-> Notice: Make sure the `files` directory has read/write permissions (`0777`).
+> Notice: Make sure the `files` directory has read/write permissions (`0777`). <br>
+> If you use [Composer](https://getcomposer.org/), run `composer install`.
 
 Next you should continue with the [Quickstart](quick.md) guide.
 
