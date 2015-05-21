@@ -66,7 +66,7 @@ The maximum file size allowed (in Bytes).
 
 - Type: _integer_
 - Default: `n/a`
-- Example `100000000` (= 10 Megabyes)
+- Example `10000000` (= 10 Megabyes)
 
 ### accept_file_types
 
