@@ -2,6 +2,7 @@
 
 - [Introduction](#introduction)
 - [Options](#options)
+- [Templates](#templates)
 
 ## Introduction
 
@@ -229,3 +230,31 @@ Default:
 		error: '.error',
 		progressbar: '.progress-bar'
 	}
+
+## Templates
+
+If you use the script with a [filesList](#fileslist) you can have templates with the HTML that will be appended / prepended to the file list.
+
+There are 2 templates, one used to render the file before it's uploaded and another one to render the file after it's uploaded. You can find examples for both templates in the `index.html` and `basic-list.html`.
+
+Inside the template you can access the [file object](javascript.md#the-file-object) properties, add if statements, etc.
+
+#### Display a property:
+
+	<%= file.name %>
+
+#### If statement:
+
+	<% if (file.error) { %>
+		<%= file.error %>
+	<% } %>
+
+#### If-else statement:
+
+	<% if (file.url) { %>
+		<a href="<%= file.url %>"><%= file.name %></a>
+	<% } else { %>
+		<%= file.name %>
+	<% } %>
+
+_Read more about the templates [here](http://ejohn.org/blog/javascript-micro-templating/)._

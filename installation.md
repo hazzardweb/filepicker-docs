@@ -12,6 +12,8 @@
 
 > Notice: Make sure the `files` directory has read/write permissions (`0777`).
 
+Next you should continue with the [Quickstart](quick.md) guide.
+
 ## Requirements
 
 Filepicker has a few requirements:

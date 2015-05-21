@@ -5,14 +5,15 @@
 
 - Setup
     - [Installation](installation.md)
-    - [Quickstart](quick.md)
 	- [Structure](structure.md)
 
-- Usage Examples
-	- [Full](full.md)
-	- [List](list.md)
-	- [Basic](basic.md) 
-	- [Avatar](avatar.md)
+- Usage
+	- [Quickstart](quick.md)
+	- [Full Demo](full.md)
+	- [Single File](singlefile.md)
+	- [Avatar Picker](avatar.md)
+	- [Basic](basic.md)
+	- [Basic List](basiclist.md) 
 	
 - Plugins
 	- [Crop](crop.md) 

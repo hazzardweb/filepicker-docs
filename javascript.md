@@ -130,6 +130,16 @@ If prevented from default, the file will not be rendered and added to the files 
 
 Event fired for sent uploads (successfully or failed uploads).
 
+### load
+
+Event fired after the files where loaded from the server.
+
+Example:
+
+	.on('filepicker.load',  function(e, result) {
+		console.log(result.files);
+	});
+
 ### destroy
 
 Event fired on file deletion.

@@ -1,6 +1,6 @@
-# Avatar Picker Example
+# Single File Example
 
-This examples uses [Bootstrap](http://getbootstrap.com/), includes the [crop](crop.md) and  [webcam](webcam.md) plugins and allows to upload an image for your profile avatar.
+This examples uses [Bootstrap](http://getbootstrap.com/), includes the [crop](crop.md) and  [webcam](webcam.md) plugins and allows to upload a file at the time.
 
 __CSS:__
 
@@ -10,16 +10,20 @@ __CSS:__
 
 __JavaScript:__
 
+	<script src="assets/js/vendor/jquery.js"></script>
+	<script src="assets/js/vendor/bootstrap.js"></script>
+	<script src="assets/js/vendor/jquery.Jcrop.js"></script>
+
+	<script src="assets/js/jquery.filepicker.js"></script>
+
+	<script src="assets/js/plugins/webcam.js"></script>
+	<script src="assets/js/plugins/crop.js"></script>
+
 	<script>
 		jQuery(document).ready(function($) {
 			// Initialize the plugin.
 			var FP = $('#filepicker').filePicker({
 				url: 'uploader/index.php',
-				// Only accept images. Make sure to check in PHP too !!
-				acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-			})
-			.on('filepicker.add', function(e, file) {
-				if (file.error) alert(file.error);
 			})
 			.on('filepicker.send', function(e, file) {
 				// Show progress when uploading the file.
@@ -33,21 +37,25 @@ __JavaScript:__
 			.on('filepicker.success', function(e, file) {
 				// Hide progress bar.
 				$('.progress').hide();
-				// Update the file.
-				$('.crop').data('file', file);
-				// Check for file upload error.
-				if (file.error) return alert(file.error);
-				// Show crop button if is image.
-				$('.crop').show();
-				// Update the image src.
-				$('.avatar').attr('src', file.versions.medium.url +'?'+ new Date().getTime());
+
+				if (file.error) {
+					alert(file.error);
+				} else {
+					$('.files').append('<li><a href="' + file.url + '">' + file.name + '</a></li>');
+				}
+
+				if (file.imageFileType) {
+					// Update the file.
+					$('.crop').data('file', file);
+					// Show crop if is image.
+					$('.crop').show();
+				}
 			})
 			// Crop success event.
 			.on('filepicker.cropsuccess', function(e, file) {
 				// Update the file back.
 				$('.crop').data('file', file);
-				// Update the image src.
-				$('.avatar').attr('src', file.versions.medium.url +'?'+ new Date().getTime());
+				console.log(file);
 			});
 
 			// Filepicker webcam plugin.
@@ -60,21 +68,30 @@ __JavaScript:__
 			FilepickerCrop(FP, {
 				container: $('#crop-modal'),
 				cropBtn: $('.crop'),
-				aspectRatio: 1, // Square images.
 			});
 		});
 	</script>
 
 __HTML:__
-	
-	<p><img src="http://placehold.it/280&text=no+image" class="avatar" width="280"></p>
 
 	<form id="filepicker" method="POST" enctype="multipart/form-data">
-		<div class="btn btn-primary fileinput">Upload<input type="file" name="files[]"></div>
-		<button type="button" class="btn btn-primary webcam">Webcam</button>
-		<button type="button" class="btn btn-info crop" style="display: none">Crop</button>
-		
-		<div class="progress" style="display: none; width: 280px">
+		<div class="btn btn-primary fileinput">
+			<span class="glyphicon glyphicon-plus"></span>
+			Upload
+			<input type="file" name="files[]">
+		</div>
+
+		<button type="button" class="btn btn-primary webcam">
+			<span class="glyphicon glyphicon-camera"></span>
+			Webcam
+		</button>
+
+		<button type="button" class="btn btn-info crop" style="display: none">
+			<span class="glyphicon glyphicon-edit"></span>
+			Crop
+		</button>
+
+		<div class="progress" style="display: none;">
 			<div class="progress-bar progress-bar-striped active"></div>
 		</div>
 
@@ -84,7 +101,9 @@ __HTML:__
 			</div>
 		</div>
 	</form>
-	
+
+	<ul class="files"></ul>
+
 	<!-- Bootstrap webcam modal -->
 	<div class="modal fade" id="webcam-modal">
 		<div class="modal-dialog">

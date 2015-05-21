@@ -122,9 +122,9 @@ The jQuery object for the element where the image preview will be rendered.
 
 ### cropBtn
 
-The Query object for the button that will open the crop. When using the uploader with [filesList](configjs.md#fileList) it will look into the download template for a `.crop` button.
+The Query object for the button that will open the crop. When using the uploader with [filesList](configjs.md#fileslist) it will look into the download template for a `.crop` button.
 
-If Filepicker is used without a the file list, this jQuery object must have the `data-file` attribute set with the file object. Edit `basic.html` to see how you can attach a file object to the button.
+If Filepicker is used without a the [filesList](configjs.md#fileslist), this jQuery object must have the `data-file` attribute set with the file object. Edit `basic.html` to see how you can attach a file object to the button.
 
 - Type: _jQuery Object_
 - Default: `filesList.find('.crop')`
