@@ -14,6 +14,7 @@
 	- [Avatar Picker](avatar.md)
 	- [Basic](basic.md)
 	- [Basic List](basiclist.md) 
+	- [Protecting Files](protection.md)
 	
 - Plugins
 	- [Crop](crop.md) 

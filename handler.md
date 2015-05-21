@@ -18,13 +18,25 @@ The handler constructor takes as parameter an instance of `src/Filepicker/Upload
 	// Create a new handler instance.
 	$handler = new Handler($uploader);
 	
-	// Listen for events.
+	// Listen for events:
 	$handler->on('upload.before', function(Event $e) {
-		// Called before the upload starts.
+		// Fired before the upload starts.
+	});
+	
+	$handler->on('upload.success', function(Event $e) {
+		// Fired for a successfully upload.
 	});
 
 	// Handle an incoming HTTP request and send the response.
 	$handler->handle(Request::createFromGlobals())->send();
+
+If you want to register multiple events with the same callback function you can pass an array of event types:
+
+	$handler->on(array('file.get', 'file.download', 'file.delete', 'crop.before'), function(Event $e) {
+		// If the user is Unauthorized, then:
+		$e->abort('Unauthorized');
+		$e->preventDefault(); // Prevent other events to be fired.
+	});
 
 ## Events
 
@@ -59,6 +71,23 @@ Aborts the event from continuing executing.
 
 	$e->abort('Custom error message!');
 
+### preventDefault
+
+Prevent events of the same type to be fired. If you have the same event register multiple times you may want to execute only the first and prevent the next one from executing.
+
+	$e->preventDefault();
+
+Example:
+
+	$handler->on(array('file.get', 'file.download', 'file.delete', 'crop.before'), function(Event $e) {
+		// If the user is Unauthorized, then:
+		$e->abort('Unauthorized');
+		$e->preventDefault(); // Prevent other events to be fired.
+	});
+
+	$handler->on('file.download'), function(Event $e) {
+		// This event will not be fired.
+	});
 
 ### setFilename
 
