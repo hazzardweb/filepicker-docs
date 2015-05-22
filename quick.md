@@ -37,3 +37,28 @@ __JavaScript:__
 			});
 		});
 	</script>
+
+__PHP:__
+
+	use Hazzard\Filepicker\Uploader;
+	use Hazzard\Filepicker\Http\Event;
+	use Hazzard\Filepicker\Http\Handler;
+	use Intervention\Image\ImageManager;
+	use Hazzard\Config\Repository as Config;
+	use Symfony\Component\HttpFoundation\Request;
+
+	// Include the autoloader.
+	require '../vendor/autoload.php';
+
+	// Create a new uploader instance.
+	$uploader = new Uploader($config = new Config, new ImageManager);
+
+	// Create a new http handler instance.
+	$handler = new Handler($uploader);
+	
+	// Set some configuration options.
+	$config['upload_dir'] = __DIR__.'/../files';
+	$config['upload_url'] = 'files';
+
+	// Handle an incoming HTTP request and send the response.
+	$handler->handle(Request::createFromGlobals())->send();
