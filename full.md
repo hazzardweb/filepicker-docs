@@ -34,7 +34,7 @@ __JavaScript:__
 
 			// Filepicker webcam plugin.
 			FilepickerWebcam(FP, {
-				container: $('.webcam-container'),
+				container: $('#webcam-modal'),
 				openButton: $('.webcam'),
 			});
 
