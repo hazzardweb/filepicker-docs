@@ -9,17 +9,11 @@
 
 - Usage
 	- [Quickstart](quick.md)
-	- [Full Demo](full.md)
+	- [List Files](list.md)
 	- [Single File](singlefile.md)
 	- [Avatar Picker](avatar.md)
-	- [Basic](basic.md)
-	- [Basic List](basiclist.md) 
-	- [Protecting Files](protection.md)
-	
-- Plugins
-	- [Crop](crop.md) 
-	- [Webcam](webcam.md)
-	- [Pagination](pagination.md)
+	- [Basic & Basic List](basic.md)
+	- [HowTo](howto.md)
 
 - Configuration
 	- [PHP](configphp.md)
@@ -28,7 +22,12 @@
 - API
 	- [JavaScript](javascript.md)
 	- [Handler](handler.md)
-	- [Uploader](uploader.md)
+	- [Uploader](uploader.md)	
+
+- Plugins
+	- [Crop](crop.md) 
+	- [Webcam](webcam.md)
+	- [Pagination](pagination.md)
 
 - [Debugging](debugging.md)
 - [Contribution Guide](contributions.md)

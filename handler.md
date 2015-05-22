@@ -129,6 +129,13 @@ Event fired for a successfully upload. Use [abort](#abort) to cancel and delete 
 
 Event fired for a failed upload. Use `$e->getError()` to get the error message and `$e->setError('Custom error message')` to set a custom error message.
 
+### files.get
+Event fired on files access (When the files are loaded). The `$files` argument is an array of [File](https://github.com/symfony/HttpFoundation/blob/2.6/File/File.php) and you can remove/sort etc. See [Sort Files](howto.md#sort-files).
+
+	$handler->on('files.get', function(array &$files, &$total) {
+		
+	});
+
 ### file.get
 
 Event fired on file access. Use [abort](#abort) to exclude the file from the response.

@@ -214,7 +214,7 @@ Whether to keep the original image without cropping it. This allows to use the o
 
 ### sorting_order
 
-The sorting order when scaning the directory for files with [scandir](http://php.net/manual/en/function.scandir.php).
+The alphabetical sorting order when scaning the directory for files with [scandir](http://php.net/manual/en/function.scandir.php).
 Use `0` for ascending order, and `1` for descending order. In PHP 5.4 you can use `SCANDIR_SORT_NONE` for unsorted.
 
 - Type: _integer_

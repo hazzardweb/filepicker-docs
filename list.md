@@ -1,6 +1,6 @@
-# Full Example
+# List Example
 
-This examples uses [Bootstrap](http://getbootstrap.com/) and includes all three plugins ([crop](crop.md), [webcam](webcam.md), [pagination](pagination.md)).
+This examples uses [Bootstrap](http://getbootstrap.com/) and includes a files list with all three plugins ([crop](crop.md), [webcam](webcam.md), [pagination](pagination.md)).
 
 __CSS:__
 
