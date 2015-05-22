@@ -2,6 +2,7 @@
 
 - [Protect Files](#protect-files)
 - [Sort Files](#sort-files)
+- [Send Data to Server](#send-data-to-server)
 
 ## Protect Files
 
@@ -60,3 +61,44 @@ To sort the files you can simply register a listener for the [files.get](handler
 ### Sort by filename
 
 For alphabetically order see the [sorting_order](configphp.md#sorting_order) option.
+
+## Send Data to Server
+
+If you wish to send data to the server you can do that by using the [formData](configjs.md#formdata) option. You can either pass an object of parameters or a function that returns an object.
+
+Example 1:
+	
+	$('#filepicker').filePicker({
+		// ... 
+		formData: {
+			paramA: 'value1',
+			paramB: 'value2',
+		},
+	});
+
+Example 2:
+
+	$('#filepicker').filePicker({
+		// ... 
+		formData: function() { 
+			// Grab the value from an input.
+			var val = $('#myinput').value();
+			// Return the object.
+			return {
+				paramA: 'value 1',
+				paramB: val
+			} 
+		},
+	});
+
+On the server side in any of the handler [events](handler.md) you can access the data with `$_POST` (or `$_GET` when loading the files):
+
+	$handler->on('upload.before', function(Event $e) {
+		$valueA = $_POST['paramA'];
+		$valueB = $_POST['paramB'];
+	});
+
+	$handler->on('file.get', function(Event $e) {
+		$valueA = $_GET['paramA'];
+		$valueB = $_GET['paramB'];
+	});
