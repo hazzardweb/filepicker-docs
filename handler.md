@@ -119,7 +119,7 @@ If you need the image instance in other events use something like this (make sur
 
 ### upload.before
 
-Event fired before the file upload starts. Use [abort](#abort) to cancel the file upload, [setFilename](#setFilename) to rename the file.
+Event fired before the file upload starts. Use [abort](#abort) to cancel the file upload, [setFilename](#setfilename) to rename the file.
 
 ### upload.success
 
