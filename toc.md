@@ -13,6 +13,7 @@
 	- [Single File](singlefile.md)
 	- [Avatar Picker](avatar.md)
 	- [Basic & Basic List](basic.md)
+	- [Laravel 5](laravel.md)
 	- [HowTo](howto.md)
 
 - Configuration
