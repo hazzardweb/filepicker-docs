@@ -11,8 +11,8 @@ Edit your `composer.json` file and add the following line to the `psr-4` autoloa
 Then run:
 
 	composer require hazzard/config
-	composer intervention/image
-	composer update
+	composer require intervention/image
+	composer dumpautoload
 
 Create a `FilepickerController` controller and add:
 
