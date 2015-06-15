@@ -21,7 +21,7 @@ Create a `FilepickerController` controller and add:
 	namespace App\Http\Controllers;
 
 	use Illuminate\Http\Request;
-	use Illuminate\Routing\Controller;
+	use Illuminate\Routing\Controller as BaseController;
 
 	use Hazzard\Filepicker\Uploader;
 	use Hazzard\Filepicker\Http\Event;
@@ -29,7 +29,7 @@ Create a `FilepickerController` controller and add:
 	use Intervention\Image\ImageManager;
 	use Hazzard\Config\Repository as Config;
 
-	class FilepickerController extends Controller
+	class FilepickerController extends BaseController
 	{
 		/**
 		 * @var \Hazzard\Filepicker\Http\Handler
