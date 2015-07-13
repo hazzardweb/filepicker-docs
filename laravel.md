@@ -47,6 +47,7 @@ Create a `FilepickerController` controller and add:
 
 			$config['upload_dir'] =  public_path('files');
 			$config['upload_url'] = '/files';
+			$config['debug'] = config('app.debug');
 		}
 
 		/**
