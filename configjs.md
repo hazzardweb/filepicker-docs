@@ -85,7 +85,7 @@ The accepted file types.
 - Default: `n/a`
 - Example `/(\.|\/)(gif|jpe?g|png)$/i`
 
-> Warning: Make sure to also set the [accpet_file_types](configphp.md#accept_file_types) PHP option ! This is just so the file is not set to server if the JavaScript validation fails. But it's not a safe way of preventing users from uploading unwanted files to the server.
+> Warning: Make sure to also set the [accept_file_types](configphp.md#accept_file_types) PHP option ! This is just so the file is not set to server if the JavaScript validation fails. But it's not a safe way of preventing users from uploading unwanted files to the server.
 
 ### imageFileTypes
 
