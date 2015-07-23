@@ -164,6 +164,13 @@ The image version maximum height.
 
 - Type: _integer_
 
+#### quality
+
+The quality of the image (0 - 100). 
+
+- Type: _integer_
+- Default: `90`
+
 #### upload_dir
 
 Custom directory where the image version is created. Make sure to use absolute paths and the directory has read/write permissions. If is the same as the global [upload_dir](#upload_dir) directory then, the image version will be named like this:`filename-version.jpg`.
