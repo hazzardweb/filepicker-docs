@@ -8,15 +8,27 @@
 When creating a new instance of `Hazzard\Filepicker\Uploader` you pass a `Hazzard\Config\Repository` that you use to set configuration options:
 	
 	use Hazzard\Filepicker\Uploader;
+	use Intervention\Image\ImageManager;
 	use Hazzard\Config\Repository as Config;
 
-	$uploader = new Uploader($config = new Config);
+	$uploader = new Uploader($config = new Config, new ImageManager);
 	
 Set configuration options:
 
 	$config['debug'] = true;
 	// or
 	$config->set('upload_dir', __DIR__.'/../files');
+
+
+The second argument is an instance of [Intervention Image](http://image.intervention.io/) which supports two image processing extensions: __GD__ and __Imagick__. The default driver is  __GD__, to change it just pass the configuration as an array directly into the ImageManager instance:
+
+```
+$manager = new ImageManager(array('driver' => 'imagick'));
+
+$uploader = new Uploader($config = new Config, $manager);
+```
+
+> Notice: Make sure you have installed [Imagick](https://www.google.com/search?q=install+imagick+php) if you want to use it.
 
 ## Options
 
