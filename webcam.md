@@ -9,28 +9,32 @@
 ## Basic Usage
 
 __HTML Setup:__
-	
-	<!-- The button that will open the webcam -->
-	<button type="button" class="webcam">Webcam</button>
-	
-	<!-- The webcam container -->
-	<div id="webcam-container" style="display: none;">
-		<div class="camera"></div>
-		<button type="button" class="snap">Take picture</button>
-		<button type="button" class="close-webcam">Close webcam</button>
-	</div>
+
+```markup
+<!-- The button that will open the webcam -->
+<button type="button" class="webcam">Webcam</button>
+
+<!-- The webcam container -->
+<div id="webcam-container" style="display: none;">
+	<div class="camera"></div>
+	<button type="button" class="snap">Take picture</button>
+	<button type="button" class="close-webcam">Close webcam</button>
+</div>
+```
 
 __JavaScript:__
 
-	// Filepicker plugin
-	var FP = $('#filepicker').filePicker({...});
-	
-	// Webcam plugin call
-	FilepickerWebcam(FP, {
-		container: $('#webcam-container'),
-		openButton: $('.webcam'),
-		// more options ...
-	});
+```javascript
+// Filepicker plugin
+var FP = $('#filepicker').filePicker({...});
+
+// Webcam plugin call
+FilepickerWebcam(FP, {
+	container: $('#webcam-container'),
+	openButton: $('.webcam'),
+	// more options ...
+});
+```
 
 ## Bootstrap Modal
 
@@ -38,36 +42,40 @@ _Requires [Bootstrap](http://getbootstrap.com/)._
 
 __HTML Setup:__
 
-	<div class="modal fade" id="webcam-modal">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Webcam</h4>
-				</div>
-				<div class="modal-body">
-					<div class="camera"></div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default close-webcam" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-info snap">Take picture</button>
-				</div>
+```markup
+<div class="modal fade" id="webcam-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Webcam</h4>
+			</div>
+			<div class="modal-body">
+				<div class="camera"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default close-webcam" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-info snap">Take picture</button>
 			</div>
 		</div>
 	</div>
+</div>
+```
 
 __JavaScript:__
 
-	// Filepicker plugin
-	var FP = $('#filepicker').filePicker({...});
-	
-	// Webcam plugin call
-	FilepickerWebcam(FP, {
-		container: $('#webcam-modal'),
-		openButton: $('.webcam'),
-		modal: true, // Optional, because it auto detects Bootstrap modal support.
-		// more options ...
-	});
+```javascript
+// Filepicker plugin
+var FP = $('#filepicker').filePicker({...});
+
+// Webcam plugin call
+FilepickerWebcam(FP, {
+	container: $('#webcam-modal'),
+	openButton: $('.webcam'),
+	modal: true, // Optional, because it auto detects Bootstrap modal support.
+	// more options ...
+});
+```
 
 ## Options
 

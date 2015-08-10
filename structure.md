@@ -1,23 +1,26 @@
 # Filepicker Structure
-	.
-	├── *.html
-	└── assets
-	|	├──	css
-	|	├── less
-	|	└── js
-	|	    ├── jquery.filepicker.js
-	|	    ├── plugins
-	|		└── vendor
-	├── files
-	├── vendor
-	├──	composer.json
-	└── uploader
-	    ├── *.php
-		└── src
-			├── Uploader.php
-			└── Http
-				├── Handler.php
-				└── Event.php
+
+```markup	
+.
+├── *.html
+└── assets
+|	├──	css
+|	├── less
+|	└── js
+|	    ├── jquery.filepicker.js
+|	    ├── plugins
+|		└── vendor
+├── files
+├── vendor
+├──	composer.json
+└── uploader
+    ├── *.php
+	└── src
+		├── Uploader.php
+		└── Http
+			├── Handler.php
+			└── Event.php
+```
 
 The `*.html` files are the Front-end examples with HTML and JavaScript.
 

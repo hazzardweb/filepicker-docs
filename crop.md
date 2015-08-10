@@ -10,23 +10,27 @@
 	
 __HTML Setup:__
 	
-	<!-- The crop container -->
-	<div id="crop-container" style="display: none;">
-		<div class="crop-preview"></div>
-		<button type="button" class="cancel">Cancel</button>
-		<button type="button" class="save">Save</button>
-	</div>
+```markup
+<!-- The crop container -->
+<div id="crop-container" style="display: none;">
+	<div class="crop-preview"></div>
+	<button type="button" class="cancel">Cancel</button>
+	<button type="button" class="save">Save</button>
+</div>
+```
 
 __JavaScript:__
 
-	// Filepicker plugin
-	var FP = $('#filepicker').filePicker({...});
-	
-	// Crop plugin call
-	FilepickerCrop(FP, {
-		container: $('#crop-container'),
-		// more options ... 
-	});
+```javascript
+// Filepicker plugin
+var FP = $('#filepicker').filePicker({...});
+
+// Crop plugin call
+FilepickerCrop(FP, {
+	container: $('#crop-container'),
+	// more options ... 
+});
+```
 
 ## Bootstrap Modal
 
@@ -34,35 +38,39 @@ _Requires [Bootstrap](http://getbootstrap.com/)._
 
 __HTML Setup:__
 
-	<div class="modal fade" id="crop-modal">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Crop image</h4>
-				</div>
-				<div class="modal-body">
-					<div class="crop-preview"></div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary save" data-loading-text="Saving...">Save</button>
-				</div>
+```markup
+<div class="modal fade" id="crop-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Crop image</h4>
+			</div>
+			<div class="modal-body">
+				<div class="crop-preview"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary save" data-loading-text="Saving...">Save</button>
 			</div>
 		</div>
 	</div>
+</div>
+```
 
 __JavaScript:__
 
-	// Filepicker plugin
-	var FP = $('#filepicker').filePicker({...});
-	
-	// Crop plugin call
-	FilepickerCrop(FP, {
-		container: $('#crop-modal'),
-		modal: true, // Optional, because it auto detects Bootstrap modal support.
-		// more options ... 
-	});
+```javascript
+// Filepicker plugin
+var FP = $('#filepicker').filePicker({...});
+
+// Crop plugin call
+FilepickerCrop(FP, {
+	container: $('#crop-modal'),
+	modal: true, // Optional, because it auto detects Bootstrap modal support.
+	// more options ... 
+});
+```
 
 ## Options
 

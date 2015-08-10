@@ -11,32 +11,36 @@ the client.
 
 The handler constructor takes as parameter an instance of `src/Filepicker/Uploader.php` class. You can attach an listen for events and at the end handle the request and send a response.
 	
-	use Hazzard\Filepicker\Http\Event;
-	use Hazzard\Filepicker\Http\Handler;
-	use Symfony\Component\HttpFoundation\Request;
+```php
+use Hazzard\Filepicker\Http\Event;
+use Hazzard\Filepicker\Http\Handler;
+use Symfony\Component\HttpFoundation\Request;
 
-	// Create a new handler instance.
-	$handler = new Handler($uploader);
-	
-	// Listen for events:
-	$handler->on('upload.before', function(Event $e) {
-		// Fired before the upload starts.
-	});
-	
-	$handler->on('upload.success', function(Event $e) {
-		// Fired for a successfully upload.
-	});
+// Create a new handler instance.
+$handler = new Handler($uploader);
 
-	// Handle an incoming HTTP request and send the response.
-	$handler->handle(Request::createFromGlobals())->send();
+// Listen for events:
+$handler->on('upload.before', function(Event $e) {
+	// Fired before the upload starts.
+});
+
+$handler->on('upload.success', function(Event $e) {
+	// Fired for a successfully upload.
+});
+
+// Handle an incoming HTTP request and send the response.
+$handler->handle(Request::createFromGlobals())->send();
+```
 
 If you want to register multiple events with the same callback function you can pass an array of event types:
 
-	$handler->on(array('file.get', 'file.download', 'file.delete', 'crop.before'), function(Event $e) {
-		// If the user is Unauthorized, then:
-		$e->abort('Unauthorized');
-		$e->preventDefault(); // Prevent other events to be fired.
-	});
+```php
+$handler->on(array('file.get', 'file.download', 'file.delete', 'crop.before'), function(Event $e) {
+	// If the user is Unauthorized, then:
+	$e->abort('Unauthorized');
+	$e->preventDefault(); // Prevent other events to be fired.
+});
+```
 
 ## Events
 
@@ -48,7 +52,9 @@ The event `$e` has the following methods:
 
 Returns an instance of [UploadedFile](https://github.com/symfony/HttpFoundation/blob/2.6/File/UploadedFile.php) when the file is about to be uploaded (`upload.before` and `upload.error`) and [File](https://github.com/symfony/HttpFoundation/blob/2.6/File/File.php) after the file is uploaded. Both classes extend the  [SplFileInfo](http://php.net/manual/en/class.splfileinfo.php) class.
 
-	$file = $e->getFile();
+```php
+$file = $e->getFile();
+```
 
 To access the `$file` properties use:
 	
@@ -69,51 +75,67 @@ _See [SplFileInfo](http://php.net/manual/en/class.splfileinfo.php) for all the a
 
 Aborts the event from continuing executing.
 
-	$e->abort('Custom error message!');
+```php
+$e->abort('Custom error message!');
+```
 
 ### preventDefault
 
 Prevent events of the same type to be fired. If you have the same event register multiple times you may want to execute only the first and prevent the next one from executing.
 
-	$e->preventDefault();
+```php
+$e->preventDefault();
+```
 
 Example:
 
-	$handler->on(array('file.get', 'file.download', 'file.delete', 'crop.before'), function(Event $e) {
-		// If the user is Unauthorized, then:
-		$e->abort('Unauthorized');
-		$e->preventDefault(); // Prevent other events to be fired.
-	});
+```php
+$handler->on(array('file.get', 'file.download', 'file.delete', 'crop.before'), function(Event $e) {
+	// If the user is Unauthorized, then:
+	$e->abort('Unauthorized');
+	$e->preventDefault(); // Prevent other events to be fired.
+});
 
-	$handler->on('file.download'), function(Event $e) {
-		// This event will not be fired.
-	});
+$handler->on('file.download'), function(Event $e) {
+	// This event will not be fired.
+});
+```
 
 ### setFilename
 
 Changes the save name of the file. Can be used in the `upload.before` and `crop.before` events.
 
-	$e->setFilename('custom_file_name');
+```php
+$e->setFilename('custom_file_name');
+```
 
 If you wish to change the extension too, set the second parameter to `false`.
 
-	$e->setFilename('custom_file_name.jpg', false);
+```php
+$e->setFilename('custom_file_name.jpg', false);
+```
 
 ### setData 
 
 Attaches custom data to the file that will be available in the file response object.
 
-	$e->setData(array('file_id' => 123));
+```php
+$e->setData(array('file_id' => 123));
+```
 
 ### getImage
 
 Returns an instance of [Image](https://github.com/Intervention/image/blob/master/src/Intervention/Image/Image.php), if the file is an image. This method can be only used in the `crop.before` and `crop.after` events.
 
-	$image = $e->getImage();
+```php
+$image = $e->getImage();
+```
 
 If you need the image instance in other events use something like this (make sure the file is actually an image):
 
-	$image = $handler->uploader->getImageManager()->make($e->getFile());
+```php
+$image = $handler->uploader->getImageManager()->make($e->getFile());
+```
 
 ## Available Events
 
@@ -132,9 +154,11 @@ Event fired for a failed upload. Use `$e->getError()` to get the error message a
 ### files.get
 Event fired on files access (When the files are loaded). The `$files` argument is an array of [File](https://github.com/symfony/HttpFoundation/blob/2.6/File/File.php) and you can remove/sort etc. See [Sort Files](howto.md#sort-files).
 
-	$handler->on('files.get', function(array &$files, &$total) {
-		
-	});
+```php
+$handler->on('files.get', function(array &$files, &$total) {
+	
+});
+```
 
 ### file.get
 

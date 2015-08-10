@@ -7,15 +7,17 @@
 
 When calling the jQuery `.filePicker` plugin use the jQuery `.on` method to listen for events. All events have the `filepicker.` prefix:
 
-	$('#filepicker').filePicker({
-		// options ...
-	})
-	.on('filepicker.success', function(e, file) {
-		alert(file.name + ' has been uploaded.');
-	})
-	.on('filepicker.fail', function(e, file) {
-		alert(file.name + ' could not be uploaded.');
-	});
+```javascript
+$('#filepicker').filePicker({
+	// options ...
+})
+.on('filepicker.success', function(e, file) {
+	alert(file.name + ' has been uploaded.');
+})
+.on('filepicker.fail', function(e, file) {
+	alert(file.name + ' could not be uploaded.');
+});
+```
 
 ## The File Object
 
@@ -59,27 +61,31 @@ When an event is fired the first argument of the callback function is a [jQuery 
 
 You can use the `e` event object to find the target element or to prevent the event from default:
 
-	$('#filepicker').filePicker({
-		// options ...
-	})
-	.on('filepicker.add', function(e, file) {
-		e.preventDefault();
-	});
+```javascript
+$('#filepicker').filePicker({
+	// options ...
+})
+.on('filepicker.add', function(e, file) {
+	e.preventDefault();
+});
+```
 
 This way you can overwrite the plugin behavior and write your own implementation.
 
 To access the Filepicker internal functions make another call on the element without any options to the the instance:
-	
-	$('#filepicker').filePicker({
-		// options ...
-	})
-	.on('filepicker.add', function(e, file) {
-		// Get the instance:
-		var FP = $('#filepicker').filePicker();
-	
-		// Access a function:
-		FP.getNumberOfFiles();
-	});
+
+```javascript
+$('#filepicker').filePicker({
+	// options ...
+})
+.on('filepicker.add', function(e, file) {
+	// Get the instance:
+	var FP = $('#filepicker').filePicker();
+
+	// Access a function:
+	FP.getNumberOfFiles();
+});
+```
 
 Edit `assets/js/jquery.filepicker.js` to find all the available functions.
 
@@ -110,11 +116,13 @@ If `false` is returned the file transfer will be canceled. Pass a custom error m
 Event for upload progress.
 
 Example:
-	
-	.on('filepicker.progress', function(e, file) {
-		var percentage = Math.floor((file.progress.loaded / file.progress.total) * 100);
-		console.log(percentage + '%');
-	}
+
+```javascript	
+.on('filepicker.progress', function(e, file) {
+	var percentage = Math.floor((file.progress.loaded / file.progress.total) * 100);
+	console.log(percentage + '%');
+}
+```
 
 ### success
 
@@ -136,9 +144,11 @@ Event fired after the files where loaded from the server.
 
 Example:
 
-	.on('filepicker.load',  function(e, result) {
-		console.log(result.files);
-	});
+```javascript
+.on('filepicker.load',  function(e, result) {
+	console.log(result.files);
+});
+```
 
 ### destroy
 

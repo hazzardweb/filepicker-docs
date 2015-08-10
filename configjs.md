@@ -8,11 +8,13 @@
 
 When creating a new instance of the jQuery `.filePicker` plugin you can pass various options:
 
-	$('#filepicker').filePicker({
-		debug: true,
-		url: 'uploader/index.php',
-		autoUpload: false,
-	});
+```javascript
+$('#filepicker').filePicker({
+	debug: true,
+	url: 'uploader/index.php',
+	autoUpload: false,
+});
+```
 
 ## Options
 
@@ -40,19 +42,23 @@ Used to pass data to the server.
 - Example: `{paramA : 'value 1', paramB: 'value 2'}`
 
 Or using a function:
-	
-	formData: function() { 
-		return {
-			paramA: 'value 1',
-			paramB: $('#myinput').value(),
-		} 
-	},
+
+```javascript	
+formData: function() { 
+	return {
+		paramA: 'value 1',
+		paramB: $('#myinput').value(),
+	} 
+},
+```
 
 On the server side in any of the handler [events](handler.md) you can access the data with `$_POST` (or `$_GET` when loading the files).
 	
-	$handler->on('upload.before', function(Event $e) {
-		$value = $_POST['paramA'];
-	});
+```php
+$handler->on('upload.before', function(Event $e) {
+	$value = $_POST['paramA'];
+});
+```
 
 > Warning: If you allow users to upload files, don't pass their user id and then save the file based on that. Use [sessions](http://php.net/manual/en/book.session.php) instead.
 
@@ -132,17 +138,18 @@ The size of the preview thumbnail.
 An array with all error messages.
 
 - Type: _object_
+- Default:
 
-Default:
-
-	{
-		acceptFileTypes: 'The file type is not allowed.',
-		maxFileSize: 'The file exceeds the maximum allowed file size.',
-		minFileSize: 'The file size is too small.',
-		maxNumberOfFiles: 'Maximum number of files exceeded.',
-		error: 'Oops! Something went wrong.',
-		browser: 'Please upgrade your browser!',
-	}
+```javascript
+{
+	acceptFileTypes: 'The file type is not allowed.',
+	maxFileSize: 'The file exceeds the maximum allowed file size.',
+	minFileSize: 'The file size is too small.',
+	maxNumberOfFiles: 'Maximum number of files exceeded.',
+	error: 'Oops! Something went wrong.',
+	browser: 'Please upgrade your browser!',
+}
+```
 
 ### fileInput
 
@@ -219,17 +226,18 @@ The ID of the template used to render the file after it's uploaded.
 An array of selectors used to attach events for the files in the file list.
 
 - Type: _array_
+- Default:
 
-Default:
-
-	{
-		cancel: '.cancel',
-		start: '.start',
-		destroy: '.delete',
-		preview: '.preview',
-		error: '.error',
-		progressbar: '.progress-bar'
-	}
+```javascript
+{
+	cancel: '.cancel',
+	start: '.start',
+	destroy: '.delete',
+	preview: '.preview',
+	error: '.error',
+	progressbar: '.progress-bar'
+}
+```
 
 ## Templates
 
@@ -241,20 +249,26 @@ Inside the template you can access the [file object](javascript.md#the-file-obje
 
 #### Display a property:
 
-	<%= file.name %>
+```markup
+<%= file.name %>
+```
 
 #### If statement:
 
-	<% if (file.error) { %>
-		<%= file.error %>
-	<% } %>
+```markup
+<% if (file.error) { %>
+	<%= file.error %>
+<% } %>
+```
 
 #### If-else statement:
 
-	<% if (file.url) { %>
-		<a href="<%= file.url %>"><%= file.name %></a>
-	<% } else { %>
-		<%= file.name %>
-	<% } %>
+```markup
+<% if (file.url) { %>
+	<a href="<%= file.url %>"><%= file.name %></a>
+<% } else { %>
+	<%= file.name %>
+<% } %>
+```
 
 _Read more about the templates [here](http://ejohn.org/blog/javascript-micro-templating/)._

@@ -6,23 +6,25 @@
 ## Introduction
 
 When creating a new instance of `Hazzard\Filepicker\Uploader` you pass a `Hazzard\Config\Repository` that you use to set configuration options:
-	
-	use Hazzard\Filepicker\Uploader;
-	use Intervention\Image\ImageManager;
-	use Hazzard\Config\Repository as Config;
 
-	$uploader = new Uploader($config = new Config, new ImageManager);
-	
+```php
+use Hazzard\Filepicker\Uploader;
+use Intervention\Image\ImageManager;
+use Hazzard\Config\Repository as Config;
+
+$uploader = new Uploader($config = new Config, new ImageManager);
+```	
+
 Set configuration options:
-
-	$config['debug'] = true;
-	// or
-	$config->set('upload_dir', __DIR__.'/../files');
-
+```php
+$config['debug'] = true;
+// or
+$config->set('upload_dir', __DIR__.'/../files');
+```
 
 The second argument is an instance of [Intervention Image](http://image.intervention.io/) which supports two image processing extensions: __GD__ and __Imagick__. The default driver is  __GD__, to change it just pass the configuration as an array directly into the ImageManager instance:
 
-```
+```php
 $manager = new ImageManager(array('driver' => 'imagick'));
 
 $uploader = new Uploader($config = new Config, $manager);
@@ -138,19 +140,20 @@ The key of each element will be the version name and the value will be an array 
 The default version will have an empty key.
 
 - Type: _array_ 
+- Default: 
 
-Default: 
-
-	array(
-		'' => array(
-			'auto_orient' => true,
-		),
-		'thumb' => array(
-			'crop' => true,
-			'max_width' => 100,
-			'max_height' => 100,
-		),
+```php
+array(
+	'' => array(
+		'auto_orient' => true,
 	),
+	'thumb' => array(
+		'crop' => true,
+		'max_width' => 100,
+		'max_height' => 100,
+	),
+),
+```
 
 #### auto_orient
 
@@ -207,7 +210,8 @@ Callback fired before creating the image version. The callback has two arguments
 - Default: `n/a`
 
 Example:
-	
+
+```php
 	/**
 	 * 
 	 * @param  \Intervention\Image\Image $image 
@@ -216,6 +220,7 @@ Example:
 	'before' => function($image, $version) {
 		// return false;
 	},
+```
 
 #### after
 
@@ -251,23 +256,24 @@ The mode used when creating directories with [mkdir](http://php.net/manual/en/fu
 An array with all error messages.
 
 - Type: _array_
+- Default:
 
-Default:
-
-	array(
-		'no_file' => 'No file was uploaded.',
-		'max_width' => 'Image exceeds maximum width of %d pixels.',
-		'min_width' => 'Image requires a minimum width of %d pixels.',
-		'max_height' => 'Image exceeds maximum height of %d pixels.',
-		'min_height' => 'Image requires a minimum height of %d pixels.',
-		'image_resize' => 'Failed to resize image versions (%s).',
-		'upload_failed' => 'Failed to upload the file (error %d).',
-		'max_file_size' => 'The file exceeds the maximum allowed file size (limit is %d KB).',
-		'min_file_size' => 'The file size is too small.',
-		'accept_file_types' => 'The file type is not allowed.',
-		'max_number_of_files' => 'Maximum number of files exceeded.',
-		'error' => 'Oops! Something went wrong.',
-		'abort' => 'The operation was aborted.',
-		'404' => 'File not found.',
-		'401' => 'Unauthorized.',
-	),
+```php
+array(
+	'no_file' => 'No file was uploaded.',
+	'max_width' => 'Image exceeds maximum width of %d pixels.',
+	'min_width' => 'Image requires a minimum width of %d pixels.',
+	'max_height' => 'Image exceeds maximum height of %d pixels.',
+	'min_height' => 'Image requires a minimum height of %d pixels.',
+	'image_resize' => 'Failed to resize image versions (%s).',
+	'upload_failed' => 'Failed to upload the file (error %d).',
+	'max_file_size' => 'The file exceeds the maximum allowed file size (limit is %d KB).',
+	'min_file_size' => 'The file size is too small.',
+	'accept_file_types' => 'The file type is not allowed.',
+	'max_number_of_files' => 'Maximum number of files exceeded.',
+	'error' => 'Oops! Something went wrong.',
+	'abort' => 'The operation was aborted.',
+	'404' => 'File not found.',
+	'401' => 'Unauthorized.',
+),
+```

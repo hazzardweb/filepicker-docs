@@ -30,6 +30,6 @@
 	- [Webcam](webcam.md)
 	- [Pagination](pagination.md)
 
-- [Debugging](debugging.md)
-- [Contribution Guide](contributions.md)
-- [Credits](credits.md)
+-
+    - [Debugging](debugging.md)
+    - [Credits](credits.md)
