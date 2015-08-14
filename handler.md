@@ -178,7 +178,7 @@ Event fired before the crop starts.
 
 ### crop.after
 
-Event fired on crop completion. Use [getImage](#getImage) to get the image instance.
+Event fired on crop completion. Use [getImage](#getimage) to get the image instance.
 
 ## RESTful API
 
