@@ -14,6 +14,7 @@
 	- [Avatar Picker](avatar.md)
 	- [Basic & Basic List](basic.md)
 	- [Laravel 5](laravel.md)
+	- [CakePHP 3](cakephp.md)
 	- [HowTo](howto.md)
 
 - Configuration
