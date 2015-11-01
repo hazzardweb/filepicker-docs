@@ -84,7 +84,7 @@ The maximum file size allowed (in Bytes).
 
 ### accept_file_types
 
-The accepted file types. By default the script accepts all file types except `.php` files for security purposes.
+The accepted file types.
 
 - Type: _string_
 - Default: `n/a`
@@ -96,6 +96,13 @@ The accepted file types regular expresion.
 
 - Type: _string_
 - Default: `n/a`
+
+### reject_file_types
+
+The rejected file types.
+
+- Type: _string_
+- Default: `php|phtml|php3|php5|phps`
 
 ### image_file_types
 
