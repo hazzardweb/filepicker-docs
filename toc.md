@@ -15,6 +15,7 @@
 	- [Basic & Basic List](basic.md)
 	- [Laravel 5](laravel.md)
 	- [CakePHP 3](cakephp.md)
+    - [Yii 2](yii2.md)
 	- [HowTo](howto.md)
 
 - Configuration
