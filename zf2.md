@@ -1,4 +1,4 @@
-# Zend Framework 5 Integration
+# Zend Framework 2 Integration
 
 To integrate __Filepicker__ with [Zend Framework 2](http://framework.zend.com/) follow these steps:
 
