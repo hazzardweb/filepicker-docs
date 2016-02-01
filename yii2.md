@@ -2,7 +2,7 @@
 
 To integrate __Filepicker__ with [Yii 2](http://www.yiiframework.com/) follow these steps:
 
-Copy the `assets` folder to your Yii `web` directory and the `uploader` folder into your the root directory.
+Copy the `assets` folder to your Yii `web` directory and the `uploader` folder into the root directory.
 
 Edit your `composer.json` file and add the following line to the `psr-4` autoload:
 
@@ -50,6 +50,7 @@ class FilepickerController extends Controller
 
         // Path to the files directory (web/files).
         $config['upload_dir'] = Yii::getAlias('@webroot') . '/files';
+        
         // Url to the files directory.
         $config['upload_url'] = Yii::getAlias('@web') . '/files';
 
