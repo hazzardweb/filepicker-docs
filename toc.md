@@ -13,12 +13,14 @@
 	- [Single File](singlefile.md)
 	- [Avatar Picker](avatar.md)
 	- [Basic & Basic List](basic.md)
-	- [Laravel 5](laravel.md)
-	- [CakePHP 3](cakephp.md)
-    - [Yii 2](yii2.md)
-    - [CodeIgniter](codeigniter.md)
-    - [Zend Framework 2](zf2.md)
 	- [HowTo](howto.md)
+
+- Integration
+    - [Laravel 5](laravel.md)
+    - [CakePHP 3](cakephp.md)
+    - [Yii 2](yii2.md)
+    - [CodeIgniter 3](codeigniter.md)
+    - [Zend Framework 2](zf2.md)
 
 - Configuration
 	- [PHP](configphp.md)
