@@ -31,12 +31,10 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 
+use Hazzard\Filepicker\Handler;
 use Hazzard\Filepicker\Uploader;
-use Hazzard\Filepicker\Http\Event;
-use Hazzard\Filepicker\Http\Handler;
 use Intervention\Image\ImageManager;
 use Hazzard\Config\Repository as Config;
-use Symfony\Component\HttpFoundation\Request;
 
 class FilepickerController extends Controller
 {
@@ -54,7 +52,7 @@ class FilepickerController extends Controller
         // Url to the files directory.
         $config['upload_url'] = Yii::getAlias('@web') . '/files';
 
-        $handler->handle(Request::createFromGlobals())->send();
+        $handler->handle()->send();
     }
 }
 
@@ -66,10 +64,10 @@ Then in your view make sure to set the [url](configjs.md#url) option to your con
 url: '<?php echo yii\helpers\Url::to(["filepicker/handle"]); ?>',
 ```
 
-Add add the CSRF token using the [formData](configjs.md#formdata) option:
+Add add the CSRF token using the [data](configjs.md#data) option:
 
 ```javascript
-formData: {
+data: {
 	_csrf: '<?php echo Yii::$app->request->getCsrfToken(); ?>',
 }
 ```

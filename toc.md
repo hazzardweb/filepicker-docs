@@ -1,41 +1,33 @@
-- Preface
-	- [Introduction](introduction.md)
-	- [Release Notes](releases.md)
+- Prologue
+	- [Release Notes](changelog.md)
 	<!-- - [Upgrade Guide](upgrade.md) -->
 
 - Setup
     - [Installation](installation.md)
-	- [Structure](structure.md)
+    - [Quickstart](quick.md)
+    - [How-to](howto.md)
 
-- Usage
-	- [Quickstart](quick.md)
-	- [List Files](list.md)
-	- [Single File](singlefile.md)
-	- [Avatar Picker](avatar.md)
-	- [Basic & Basic List](basic.md)
-	- [HowTo](howto.md)
+- Configuration
+    - [PHP](configphp.md)
+    - [JavaScript](configjs.md)
+
+- API
+    - [PHP](apiphp.md)
+    - [JavaScript](apijs.md)
+
+- Plugins
+    - [UI](ui.md) 
+	- [Drop](drop.md)
+    - [Crop](crop.md) 
+    - [Camera](camera.md)
 
 - Integration
+    - [Yii 2](yii2.md)
     - [Laravel 5](laravel.md)
     - [CakePHP 3](cakephp.md)
-    - [Yii 2](yii2.md)
     - [CodeIgniter 3](codeigniter.md)
     - [Zend Framework 2](zf2.md)
 
-- Configuration
-	- [PHP](configphp.md)
-	- [JavaScript](configjs.md)
-
-- API
-	- [JavaScript](javascript.md)
-	- [Handler](handler.md)
-	- [Uploader](uploader.md)	
-
-- Plugins
-	- [Crop](crop.md) 
-	- [Webcam](webcam.md)
-	- [Pagination](pagination.md)
-
--
+- Extra
     - [Debugging](debugging.md)
     - [Credits](credits.md)

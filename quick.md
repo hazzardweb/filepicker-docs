@@ -1,72 +1,90 @@
 # Quickstart
 
-A very basic example on how to use the script.
+This is just a basic example that includes the upload button and a list of uploaded files.
 
-__CSS:__
+__CSS__
+
+First include the CSS file inside the `<head>` tag. 
 
 ```markup
 <link rel="stylesheet" href="assets/css/filepicker.css">
 ```
 
-__HTML:__
+__HTML__
+
+Next, add the HTML markup.
 
 ```markup
-<form id="filepicker" method="POST" enctype="multipart/form-data">
-	<input type="file" name="files[]">
-	
-	<div class="drop-window fade">
-		<div class="drop-window-content">
-			<h3>Drop files to upload</h3>
-		</div>
-	</div>
-</form>
+<div id="filepicker">
+    <!-- The upload button -->
+    <input type="file" name="files[]">
+    
+    <!-- The files list -->
+    <ul class="files"></ul>
+</div>
 ```
 
-__JavaScript:__
+__JavaScript__
+
+At the bottom of your page right before closing the `<body>` tag add:
 
 ```markup
-<script src="assets/js/vendor/jquery.js"></script>
-<script src="assets/js/jquery.filepicker.js"></script>
-
-<script>
-	jQuery(document).ready(function($) {
-		$('#filepicker').filePicker({
-			url: 'uploader/index.php',
-		})
-		.on('filepicker.success', function(e, file) {
-			if (file.error) {
-				alert(file.error);
-			} else {
-				alert(file.name);
-			}
-		});
-	});
-</script>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="assets/js/filepicker.js"></script>
 ```
 
-__PHP:__
+```javascript
+$('#filepicker').filePicker({
+    url: 'uploader/index.php',
+})
+.on('done.filepicker', function (e, data) {
+    var list = $('.files');
+
+    // Iterate through the uploaded files
+    $.each(data.files, function (i, file) {
+        if (file.error) {
+            list.append('<li>' + file.name + ' - ' + file.error + '</li>');
+        } else {
+            list.append('<li>' + file.name + '</li>');
+        }
+    });
+})
+.on('fail.filepicker', function () {
+    alert('Oops! Something went wrong.');
+});
+```
+
+> Note: If you already have jQuery in your page, you don't have to include it again.
+
+__PHP__
+
+In your PHP file add:
 
 ```php
+<?php
+
+use Hazzard\Filepicker\Handler;
 use Hazzard\Filepicker\Uploader;
-use Hazzard\Filepicker\Http\Event;
-use Hazzard\Filepicker\Http\Handler;
 use Intervention\Image\ImageManager;
 use Hazzard\Config\Repository as Config;
-use Symfony\Component\HttpFoundation\Request;
 
-// Include the autoloader.
-require '../vendor/autoload.php';
+// Include composer autoload
+require __DIR__.'/../vendor/autoload.php';
 
-// Create a new uploader instance.
 $uploader = new Uploader($config = new Config, new ImageManager);
-
-// Create a new http handler instance.
 $handler = new Handler($uploader);
 
-// Set some configuration options.
+// Configuration
+$config['debug'] = true;
 $config['upload_dir'] = __DIR__.'/../files';
-$config['upload_url'] = 'files';
-
-// Handle an incoming HTTP request and send the response.
-$handler->handle(Request::createFromGlobals())->send();
+// $config['upload_url'] = 'files';
 ```
+
+For more examples check the source code in these files: 
+
+- Basic UI: `index.php` 
+- Basic Plus UI: `plus.php`
+- Basic: `basic.php`
+- Avatar: `avatar.php`
+- Zero UI: `zero.php`
+- `uploader/index.php`

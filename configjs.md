@@ -1,50 +1,41 @@
 # jQuery Plugin Configuration
 
-- [Introduction](#introduction)
+- [Usage](#usage)
 - [Options](#options)
-- [Templates](#templates)
 
-## Introduction
+## Usage
 
-When creating a new instance of the jQuery `.filePicker` plugin you can pass various options:
+When you use the jQuery `.filePicker` plugin you can pass an object with options:
 
 ```javascript
 $('#filepicker').filePicker({
-	debug: true,
 	url: 'uploader/index.php',
-	autoUpload: false,
+    maxFileSize: 10000000,
 });
 ```
 
 ## Options
 
-### debug
-
-If enabled, more detailed error messages will be shown on every error that occurs, otherwise a simple generic error is shown.
-
-- Type: _boolean_
-- Default: `false`
-
 ### url
 
 Url to the PHP file where the upload is handled.
 
-- Type: _string_
+- Type: _String_
 - Default: `n\a`
 - Example `uploader/index.php`
 
-### formData
+### data
 
-Used to pass data to the server.
+Used to send data to the server.
 
-- Type: _object_, _function_
+- Type: _Object_, _Function_
 - Default `n/a`
 - Example: `{paramA : 'value 1', paramB: 'value 2'}`
 
 Or using a function:
 
 ```javascript	
-formData: function() { 
+data: function() { 
 	return {
 		paramA: 'value 1',
 		paramB: $('#myinput').value(),
@@ -52,223 +43,121 @@ formData: function() {
 },
 ```
 
-On the server side in any of the handler [events](handler.md) you can access the data with `$_POST` (or `$_GET` when loading the files).
-	
+On the server side using the [events](apiphp.md) you can access the data with:
+
 ```php
-$handler->on('upload.before', function(Event $e) {
-	$value = $_POST['paramA'];
+$handler->on('upload.before', function ($file) use ($handler) {
+    $valueA = $handler->request()->get('paramA'); // <=> $_POST['paramA']
+    $valueB = $handler->request()->get('paramB'); // <=> $_POST['paramB']
 });
 ```
-
-> Warning: If you allow users to upload files, don't pass their user id and then save the file based on that. Use [sessions](http://php.net/manual/en/book.session.php) instead.
-
-### autoUpload
-
-Whether to auto upload the file(s) right after selection.
-
-- Type: _boolean_
-- Default: `true`
-
-### autoLoad
-
-Whether to auto load the files from the server.
-
-- Type: _boolean_
-- Default: `false`
-
-### prependFiles
-
-Add the new files to the beginning of the file list. 
-
-- Type: _boolean_
-- Default: `true`
 
 ### acceptFileTypes
 
 The accepted file types.
 
-- Type: _string_ (regular expression)
+- Type: _String_ (regular expression)
 - Default: `n/a`
 - Example `/(\.|\/)(gif|jpe?g|png)$/i`
 
-> Warning: Make sure to also set the [accept_file_types](configphp.md#accept_file_types) PHP option ! This is just so the file is not set to server if the JavaScript validation fails. But it's not a safe way of preventing users from uploading unwanted files to the server.
+> Warning: Make sure to also set the [accept_file_types](configphp.md#accept_file_types) PHP option too!
 
 ### imageFileTypes
 
 Files that should be handled as images. Used when displaying the thumbnail preview.
 
-- Type: _string_ (regular expression)
+- Type: _String_ (regular expression)
 - Default: `/(\.|\/)(gif|jpe?g|png)$/i`
 
 ### minFileSize
 
-The minimum file size required (in Bytes).
+The minimum file size in bytes required.
 
-- Type: _integer_
+- Type: _Number_
 - Default: `1`
 - Example `1000` (= 1 Kilobyte)
 
 ### maxFileSize
 
-The maximum file size allowed (in Bytes).
+The maximum file size in bytes allowed.
 
-- Type: _integer_
+- Type: _Number_
 - Default: `n/a`
 - Example `10000000` (= 10 Megabyes)
 
-### maxNumberOfFiles
+### fileInput
 
-The maximum number of files allowed to be uploaded.
+The jQuery object / selector for the file input button.
 
-> Warning: Make sure to also set the [max_number_of_files](configphp.md#max_number_of_files) PHP option !
+- Type: _jQuery Object_/ _String_
+- Default: `input[type="file"]` (inside the container)
+- Example: `$('.file-input-btn')`
 
-- Type: _integer_
+
+### uploadMultiple
+
+Whether to upload multiple files in a single request.
+
+- Type: _Boolean_
+- Default: `false`
+
+### uploadMultipleLimit
+
+The number of files to upload when uploading multiple files in one request.
+
+- Type: _Number_
 - Default: `n/a`
-- Example: `20`
 
-### previewThumbnailSize
+### uploadMultipleSize
 
-The size of the preview thumbnail.
+The max size in bytes of each request when uploading multiple files in one request.
 
-- Type: _array[width, height]_
-- Default: `[64, 64]`
+- Type: _Number_
+- Default: `n/a`
+- Example: `10000000` (= 10 Megabyes)
+
+### parallelUploads
+
+The number of upload requests at the same time.
+
+- Type: _Number_
+- Default: `n/a`
+
+### plugins
+
+An array of plugins to be used (`ui`, `crop`, `drop`, `camera`).
+
+- Type: _Array_
+- Default: `[]`
+- Example: `['ui', 'drop']`
 
 ### messages
 
-An array with all error messages.
+An object with all error messages.
 
-- Type: _object_
+- Type: _Object_
 - Default:
 
 ```javascript
 {
-	acceptFileTypes: 'The file type is not allowed.',
-	maxFileSize: 'The file exceeds the maximum allowed file size.',
-	minFileSize: 'The file size is too small.',
-	maxNumberOfFiles: 'Maximum number of files exceeded.',
-	error: 'Oops! Something went wrong.',
-	browser: 'Please upgrade your browser!',
+    uploadFallback: 'The browser does not support file uploads.',
+    minFileSize: 'The file must be at least :min KB.',
+    maxFileSize: 'The file may not be greater than :max KB.',
+    postMaxSize: 'The file exceeds the post max size limit of :max MB.',
+    invalidFileType: 'The file type is not allowed.',
+    error: 'Oops! Something went wrong.',
+    abort: 'The operation was aborted.'
+    
+    // UI plugin
+    processing: 'Processing...',
+    deleteFail: 'Could not delete file :file.',
+
+    // Camera plugin
+    cameraError: 'Could not access the camera.',
+    cameraFallback: 'Your browser does not support the camera feature.',
+
+    // Crop plugin
+    cropLoadFail: 'Could not load the image.',
+    cropSaveFail: 'Could not save the image.'
 }
 ```
-
-### fileInput
-
-The jQuery object for the file input button.
-
-- Type: _jQuery Object_
-- Default: `element.find('input[type="file"]')`
-- Example: `$('.file-input-btn')`
-
-### startBtn
-
-The jQuery object for the _start uploading all queued files_ button.
-
-- Type: _jQuery Object_
-- Default: `element.find('.start')`
-- Example: `$('.start-all-btn')`
-
-### cancelBtn
-
-The jQuery object for the _cancel all files in the upload queue_ button.
-
-- Type: _jQuery Object_
-- Default: `element.find('.cancel')`
-- Example: `$('.cancel-all-btn')`
-
-### deleteBtn
-
-The jQuery object for the delete all files button.
-
-- Type: _jQuery Object_
-- Default: `element.find('.delete')`
-- Example: `$('.delete-all-btn')`
-
-### filesList
-
-The jQuery object for the list / table where the files are appended or prepended.
-
-- Type: _jQuery Object_
-- Default: `element.find('.files')`
-- Example: `$('.files-list')`
-
-### dropZone
-
-The jQuery object for the drop target.
-
-- Type: _jQuery Object_
-- Default: `$(document)`
-- Example: `$('.drop-zone')`
-
-### dropWindow
-
-The jQuery object for drop window that will be shown in the [dropZone](#dropZone).
-
-- Type: _jQuery Object_
-- Default: `element.find('.drop-window')`
-- Example: `$('.other-drop-window')`
-
-### uploadTemplateId
-
-The ID of the template used to render the file before it's uploaded.
-
-- Type: _string_
-- Default: `templateUpload`
-
-### downloadTemplateId
-
-The ID of the template used to render the file after it's uploaded.
-
-- Type: _string_
-- Default: `templateDownload`
-
-### selectors
-
-An array of selectors used to attach events for the files in the file list.
-
-- Type: _array_
-- Default:
-
-```javascript
-{
-	cancel: '.cancel',
-	start: '.start',
-	destroy: '.delete',
-	preview: '.preview',
-	error: '.error',
-	progressbar: '.progress-bar'
-}
-```
-
-## Templates
-
-If you use the script with a [filesList](#fileslist) you can have templates with the HTML that will be appended / prepended to the file list.
-
-There are 2 templates, one used to render the file before it's uploaded and another one to render the file after it's uploaded. You can find examples for both templates in the `index.html` and `basic-list.html`.
-
-Inside the template you can access the [file object](javascript.md#the-file-object) properties, add if statements, etc.
-
-#### Display a property:
-
-```markup
-<%= file.name %>
-```
-
-#### If statement:
-
-```markup
-<% if (file.error) { %>
-	<%= file.error %>
-<% } %>
-```
-
-#### If-else statement:
-
-```markup
-<% if (file.url) { %>
-	<a href="<%= file.url %>"><%= file.name %></a>
-<% } else { %>
-	<%= file.name %>
-<% } %>
-```
-
-_Read more about the templates [here](http://ejohn.org/blog/javascript-micro-templating/)._

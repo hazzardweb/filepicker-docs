@@ -1,15 +1,15 @@
 # Credits
 
-Filepicker uses the following libraries and assets:
+Filepicker uses the following libraries:
 
 ### Front-end
 - [jQuery](http://jquery.com)
+- [Cropper](https://github.com/fengyuanchen/cropper)
 - [Bootstrap](http://getbootstrap.com)
-- [Jcrop](http://deepliquid.com/content/Jcrop.html)
-- [JS Templating](http://ejohn.org/blog/javascript-micro-templating)
-- [IcoMoon](https://icomoon.io)
+- [Font Awesome](http://fortawesome.github.io/Font-Awesome/icons/)
+- [JavaScript Templates](https://github.com/blueimp/JavaScript-Templates)
 
 ### Back-end
 - [Composer](https://getcomposer.org)
+- [HttpFoundation](https://github.com/symfony/HttpFoundation/tree/2.6)
 - [Intervention Image](http://image.intervention.io)
-- [HttpFoundation 2.6](https://github.com/symfony/HttpFoundation/tree/2.6)

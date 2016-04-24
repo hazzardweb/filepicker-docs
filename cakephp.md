@@ -28,12 +28,10 @@ use Cake\Routing\Router;
 use Cake\Core\Configure;
 use Cake\Controller\Controller;
 
+use Hazzard\Filepicker\Handler;
 use Hazzard\Filepicker\Uploader;
-use Hazzard\Filepicker\Http\Event;
-use Hazzard\Filepicker\Http\Handler;
 use Intervention\Image\ImageManager;
 use Hazzard\Config\Repository as Config;
-use Symfony\Component\HttpFoundation\Request;
 
 class FilepickerController extends Controller
 {
@@ -52,7 +50,7 @@ class FilepickerController extends Controller
         $config['upload_url'] = Router::url('/files', true);
         $config['debug'] = Configure::read('debug');
 
-        $handler->handle(Request::createFromGlobals())->send();
+        $handler->handle()->send();
 
         return $this->response;
     }

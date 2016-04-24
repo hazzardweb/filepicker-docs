@@ -1,8 +1,22 @@
-# HowTo
+# How-to
 
+- [Rename Files](#rename-files)
 - [Protect Files](#protect-files)
-- [Sort Files](#sort-files)
+- [Fetch Files](#fetch-files)
+- [Filter Files](#filter-files)
 - [Send Data to Server](#send-data-to-server)
+
+## Rename Files
+
+To rename an uploaded file use the [upload.before](apiphp.md#uploadbefore) event:
+
+```php
+$handler->on('upload.before', function ($file) {
+    $file->save = 'myfile';
+    // OR
+    $file->saveWithExtension = 'myfile.txt';
+});
+```
 
 ## Protect Files
 
@@ -20,100 +34,91 @@ Next edit `uploader/index.php` and enable the [php_download](configphp.md#php_do
 $config['php_download'] = true;
 ```
 
-Now in before any other event listeners register one with these events: [file.get](handler.md#fileget), [file.download](handler.md#filedownload), [file.delete](handler.md#filedelete) and [crop.before](handler.md#cropbefore):
+Now in before any other event listeners register one with these events: [upload.before](apiphp.md#uploadbefore), [files.fetch](apiphp.md#filesfetch), [file.download](apiphp.md#filedownload), [file.delete](apiphp.md#filedelete), [crop.before](apiphp.md#cropbefore):
 
 ```php
-$handler->on(array('file.get', 'file.download', 'file.delete', 'crop.before'), function(Event $e) {
+$handler->on(array('upload.before', 'files.fetch', 'file.download', 'file.delete', 'crop.before'), 
+    function () {
 	// If the user is Unauthorized, then:
-	$e->abort('Unauthorized');
-	$e->preventDefault(); // Prevent other events to be fired.
+	throw new \Hazzard\Filepicker\Exception\AbortException('Unauthorized');
 });
 ```
 
 To check if the user is authorized you may include a library from your app, call a function, check if a specific session is set, etc.
 
-_Learn more about the [abort](handler.md#abort) and [preventDefault](handler.md#preventdefault) events._
+## Fetch Files
 
-## Sort Files
-
-To sort the files you can simply register a listener for the [files.get](handler#filesget) event and add use [usort](https://php.net/manual/en/function.usort.php) for example to sort the files.
-
-### Sort by filemtime 
+By default all files will be returned, but you may want to return just some files, for example the ones that belong to a specific user. To do that use the [files.fetch](apiphp.md#filesfetch) event.
 
 ```php
-$handler->on('files.get', function(array &$files) {
-	usort($files, function($a, $b) {
-		if ($a->getMTime() === $b->getMTime()) {
-			return 0;
-		}
-		
-		// ">" - newest | "<" - oldest
-		return ($a->getMTime() > $b->getMTime()) ? -1 : 1;
-	});
+$handler->on('files.fetch', function (&$files) {
+    // Here you may fetch just some files from the database based on the current user, etc.
+
+    // $files = array('file1.txt', 'file2.jpg', 'file3.zip');
 });
 ```
 
-### Sort by filesize 
+## Filter Files
+
+Instead of returning the files you want to show, you can use the [files.filter](apiphp.md#filesfilter) event to filter the files.
+
+The `$files` is an array of [file](https://github.com/symfony/HttpFoundation/blob/2.6/File/File.php) instances and `$total` is the number of files. You may iterate through the files and unset some.
+
 ```php
-$handler->on('files.get', function(array &$files) {
-	usort($files, function($a, $b) {
-		if ($a->getSize () === $b->getSize ()) {
-			return 0;
-		}
-		
-		// ">" - descending | "<" - ascending
-		return ($a->getSize () > $b->getSize ()) ? -1 : 1;
-	});
+$handler->on('files.filter', function (&$files, &$total) {
+    foreach ($files as $index => $file) {
+        if ($index % 2 == 0) { 
+            unset($files[$index]);
+            $total--;
+        }
+    }
 });
 ```
-
-### Sort by filename
-
-For alphabetically order see the [sorting_order](configphp.md#sorting_order) option.
 
 ## Send Data to Server
 
-If you wish to send data to the server you can do that by using the [formData](configjs.md#formdata) option. You can either pass an object of parameters or a function that returns an object.
+To send data to the server use the [data](configjs.md#data) option. You can either pass an object or a function that returns an object.
 
-Example 1:
+```javascript   
+// Example 1
 
-```javascript	
 $('#filepicker').filePicker({
 	// ... 
-	formData: {
+	data: {
 		paramA: 'value1',
 		paramB: 'value2',
 	},
 });
-```
 
-Example 2:
+// Example 2
 
-```javascript   
 $('#filepicker').filePicker({
 	// ... 
-	formData: function() { 
+	data: function() { 
 		// Grab the value from an input.
 		var val = $('#myinput').value();
-		// Return the object.
+		
+        // Return the object.
 		return {
 			paramA: 'value 1',
-			paramB: val
+			paramB: val,
 		} 
 	},
 });
 ```
 
-On the server side in any of the handler [events](handler.md) you can access the data with `$_POST` (or `$_GET` when loading the files):
+On the server side in any of the handler [events](apiphp.md#available-events) you can access the data with from the request:
 
 ```php
-$handler->on('upload.before', function(Event $e) {
-	$valueA = $_POST['paramA'];
-	$valueB = $_POST['paramB'];
+$handler->on('upload.before', function ($file) use ($handler) {
+	$valueA = $handler->request()->get('paramA'); // <=> $_POST['paramA']
+	$valueB = $handler->request()->get('paramB'); // <=> $_POST['paramB']
 });
 
-$handler->on('file.get', function(Event $e) {
-	$valueA = $_GET['paramA'];
-	$valueB = $_GET['paramB'];
+$handler->on('files.fetch', function (&$files) use ($handler) {
+	$valueA = $handler->request()->get('paramA'); // <=> $_GET['paramA']
+	$valueB = $handler->request()->get('paramB'); // <=> $_GET['paramB']
 });
 ```
+
+Make sure you add `use ($handler)` to use the `$handler` variable inside the scope of the function.

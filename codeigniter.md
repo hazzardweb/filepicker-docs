@@ -27,7 +27,7 @@ Then run:
 ```bash
 composer require hazzard/config
 composer require intervention/image 2.2.*
-composer require symfony/http-foundation 2.5.*
+composer require symfony/http-foundation 2.6.*
 composer dumpautoload
 ```
 
@@ -36,12 +36,10 @@ Create a `Filepicker` controller and add:
 ```php
 <?php
 
+use Hazzard\Filepicker\Handler;
 use Hazzard\Filepicker\Uploader;
-use Hazzard\Filepicker\Http\Event;
-use Hazzard\Filepicker\Http\Handler;
 use Intervention\Image\ImageManager;
 use Hazzard\Config\Repository as Config;
-use Symfony\Component\HttpFoundation\Request;
 
 class Filepicker extends CI_Controller
 {
@@ -61,15 +59,9 @@ class Filepicker extends CI_Controller
 
         // Url to the files directory.
         $config['upload_url'] = base_url('/files');
-    
 
-        // Listen for events.
-        // http://docs.hazzardweb.com/filepicker/1.0/handler#events
-        // $handler->on('upload.before', function(Event $e) {
-        // });
-        
-        // Handle an incoming HTTP request and send the response.
-        $handler->handle(Request::createFromGlobals())->send();
+        // Handle the request.
+        $handler->handle()->send();
     }
 }
 ```

@@ -28,16 +28,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
+use Hazzard\Filepicker\Handler;
 use Hazzard\Filepicker\Uploader;
-use Hazzard\Filepicker\Http\Event;
-use Hazzard\Filepicker\Http\Handler;
 use Intervention\Image\ImageManager;
 use Hazzard\Config\Repository as Config;
 
 class FilepickerController extends BaseController
 {
 	/**
-	 * @var \Hazzard\Filepicker\Http\Handler
+	 * @var \Hazzard\Filepicker\Handler
 	 */
 	protected $handler;
 
@@ -74,10 +73,10 @@ Edit your `routes.php` file and add:
 Route::any('filepicker', 'FilepickerController@handle');
 ```
 
-Then in your view make sure to set the [url](configjs.md#url) option to `/filepicker` (or whatever route you choose) and add the [CSRF Token](http://laravel.com/docs/master/routing#csrf-protection) in the [formData](configjs.md#formData) array:
+Then in your view make sure to set the [url](configjs.md#url) option to `/filepicker` (or whatever route you choose) and add the [CSRF Token](http://laravel.com/docs/master/routing#csrf-protection) in the [data](configjs.md#data) array:
 
 ```javascript
-formData: {
+data: {
 	_token: "{{ csrf_token() }}"
 }
 ```

@@ -1,31 +1,29 @@
 # Installation
 
 - [Install Filepicker](#install-filepicker)
-- [Requirements](#requirements)
-- [Browser Support](#browser-support)
+- [Server Requirements](#server-requirements)
 
 ## Install Filepicker
 
 - Extract and copy the files from the archive you have downloaded from CodeCanyon to your server or local server.
 
-- Edit `index.html` to set the [JavaScript options](configjs.md) you want and `uploader/index.php` to set the [PHP options](configphp.md) you want.
+- (Optional) Edit `index.php` to configure the [JavaScript options](configjs.md) and `uploader/index.php` to configure the [PHP options](configphp.md).
+
+- Now you can access the Filepicker script in your browser.
 
 > Notice: Make sure the `files` directory has read/write permissions (`0777`). <br>
 > If you use [Composer](https://getcomposer.org/), run `composer install`.
 
-Next you should continue with the [Quickstart](quick.md) guide.
-
-## Requirements
+### Server Requirements
 
 Filepicker has a few requirements:
 
-- [jQuery](https://jquery.com/)
-- PHP 5.3.2+
+- PHP 5.3.3+
 - [Fileinfo](https://php.net/manual/ro/book.fileinfo.php)
 - [GD](http://php.net/manual/en/book.image.php)
 - [Exif](http://php.net/manual/en/book.exif.php) 
 
-## Browser Support
+### Browser Support
 
 Filepicker supports the following browsers (desktop & mobile):
 
@@ -33,6 +31,7 @@ Filepicker supports the following browsers (desktop & mobile):
 - Firefox
 - Opera
 - Safari*
+- MS Edge
 - IE10+*
 
-_*The webcam plugin only works for the desktop version._ 
+_*The camera plugin does not work._ 

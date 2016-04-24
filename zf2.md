@@ -29,9 +29,8 @@ Create a `FilepickerController` controller and add:
 
 namespace Application\Controller;
 
+use Hazzard\Filepicker\Handler;
 use Hazzard\Filepicker\Uploader;
-use Hazzard\Filepicker\Http\Event;
-use Hazzard\Filepicker\Http\Handler;
 use Intervention\Image\ImageManager;
 use Hazzard\Config\Repository as Config;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,7 +56,7 @@ class FilepickerController extends AbstractActionController
         // Url to the files directory.
         $config['upload_url'] = $basepath('files');
 
-        $handler->handle(Request::createFromGlobals())->send();
+        $handler->handle()->send();
 
         return $this->getResponse();
     }
@@ -94,10 +93,10 @@ Then in your view make sure to set the [url](configjs.md#url) option to your con
 url: '<?php echo $this->url("filepicker") ?>',
 ```
 
-If you are using CSRF validation, make sure to set the token using the [formData](configjs.md#formdata) option:
+If you are using CSRF validation, make sure to set the token using the [data](configjs.md#data) option:
 
 ```javascript
-formData: {
+data: {
     csrf: '<?php echo $csrf->getValue(); ?>', // $csrf -> Zend\Form\Element\Csrf
 }
 ```
