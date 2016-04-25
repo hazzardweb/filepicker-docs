@@ -328,8 +328,6 @@ Read more about the [JavaScript Templates](https://github.com/blueimp/JavaScript
 
 ## Events
 
-If `e.preventDefault()` is called the default action of the event will not be triggered.
-
 ### load
 
 Event fired after loading the files. Ony if `autoLoad` is enabled.
