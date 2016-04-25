@@ -35,3 +35,5 @@ Filepicker supports the following browsers (desktop & mobile):
 - IE10+*
 
 _*The camera plugin does not work._ 
+
+Starting with version 47, Chrome requires a secure connection (SSL) in order to use the camera. Read more [here](https://www.chromium.org/Home/chromium-security/deprecating-powerful-features-on-insecure-origins).
