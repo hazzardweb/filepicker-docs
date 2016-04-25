@@ -9,8 +9,6 @@ The drop plugin allows to drag and drop files to upload.
 
 ## Usage
 
-> Notice: Include `assets/js/filepicker-drop.js` before using the plugin.
-
 __HTML:__
 
 ```markup
