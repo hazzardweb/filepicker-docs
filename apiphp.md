@@ -206,7 +206,7 @@ Event fired on file deletion. To abort the deletion throw an `AbortException` ex
 /**
  * @param \Symfony\Component\HttpFoundation\File\File $file
  */
-$handler->on('file.download', function ($file) {
+$handler->on('file.delete', function ($file) {
     throw new \Hazzard\Filepicker\Exception\AbortException('You can`t delete this file!');
 });
 ```
