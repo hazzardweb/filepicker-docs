@@ -1,5 +1,10 @@
 # Release Notes
 
+## v2.0.0 (2016-05-24)
+
+- Fix file validation (`filepicker.js`).
+- Fix array syntax for PHP 5.3 (`BaseUploader.php`).
+
 ## v2.0.0-beta.1 (2016-04-25)
 
 In this version Filepicker has been rewritten from scratch. Now it has more options and events, it's easier to customize replace default functionality and integrate. Because of the major changes there is no upgrade guide.
