@@ -3,7 +3,7 @@
 ## v2.0.0 (2016-05-24)
 
 - Fix file validation (`filepicker.js`).
-- Fix array syntax for PHP 5.3 (`BaseUploader.php`).
+- Fix array syntax and scope for PHP 5.3 (`BaseUploader.php`).
 
 ## v2.0.0-beta.1 (2016-04-25)
 
