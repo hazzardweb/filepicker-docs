@@ -38,7 +38,7 @@ Or using a function:
 data: function() { 
 	return {
 		paramA: 'value 1',
-		paramB: $('#myinput').value(),
+		paramB: $('#myinput').val(),
 	} 
 },
 ```
