@@ -96,7 +96,7 @@ $('#filepicker').filePicker({
 	// ... 
 	data: function() { 
 		// Grab the value from an input.
-		var val = $('#myinput').value();
+		var val = $('#myinput').val();
 		
         // Return the object.
 		return {
