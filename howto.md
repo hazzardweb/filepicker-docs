@@ -126,7 +126,7 @@ Make sure you add `use ($handler)` to use the `$handler` variable inside the sco
 
 ## Insert Watermark
 
-To insert a watermark, in the [after](configphp.md#after) option callback use the [insert](http://image.intervention.io/api/insert) method on the `$image` object (and don't forget to save it):
+To insert a watermark, in the [after](configphp#after) option callback use the [insert](http://image.intervention.io/api/insert) method on the `$image` object (and don't forget to save it):
 
 ```php
 /**
