@@ -5,6 +5,7 @@
 - [Fetch Files](#fetch-files)
 - [Filter Files](#filter-files)
 - [Send Data to Server](#send-data-to-server)
+- [Insert Watermark](#insert-watermark)
 
 ## Rename Files
 
@@ -122,3 +123,28 @@ $handler->on('files.fetch', function (&$files) use ($handler) {
 ```
 
 Make sure you add `use ($handler)` to use the `$handler` variable inside the scope of the function.
+
+## Insert Watermark
+
+To insert a watermark, in the [after](configphp.md#after) option callback use the [insert](http://image.intervention.io/api/insert) method on the `$image` object (and don't forget to save it):
+
+```php
+/**
+ * Insert watermark.
+ *
+ * @param  \Intervention\Image\Image $image
+ * @param  string $filename
+ * @param  string $version
+ */
+$watermark = function ($image, $filename, $version) {
+    $image->insert(__DIR__.'/watermark.jpg', 'bottom-left')->save();
+};
+
+// Add watermark to the default image version.
+$config['image_versions..after'] = $watermark;
+
+// Add watermark to the "thumb" image version.
+$config['image_versions.thumb.after'] = $watermark;
+```
+
+If you want to position the watermark somewhere else make sure to read the docs for the [insert](http://image.intervention.io/api/insert) method. 
