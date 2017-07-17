@@ -337,7 +337,7 @@ Event fired after loading the files. Ony if `autoLoad` is enabled.
  * @param {Object} e
  * @param {Object} data
  */
-.on('always.filepicker', function (e, data) {
+.on('load.filepicker', function (e, data) {
     //
 })
 ```
