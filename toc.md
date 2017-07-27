@@ -1,6 +1,6 @@
 - Prologue
 	- [Release Notes](changelog.md)
-	<!-- - [Upgrade Guide](upgrade.md) -->
+	- [Upgrade Guide](upgrade.md)
 
 - Setup
     - [Installation](installation.md)

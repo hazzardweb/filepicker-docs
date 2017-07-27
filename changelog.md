@@ -1,5 +1,11 @@
 # Release Notes
 
+## v2.0.1 (2017-07-27)
+
+- Fixed ajax method.
+- Fixed merge options.
+- Fixed orientate image.
+
 ## v2.0.0 (2016-05-24)
 
 - Fix file validation (`filepicker.js`).
