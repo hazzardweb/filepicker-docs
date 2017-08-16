@@ -80,3 +80,36 @@ data: {
 	_token: "{{ csrf_token() }}"
 }
 ```
+
+#### Using with Laravel Mix
+
+First copy all the `filepicker*.js` files from `assets/js` to your project folder in `resources/assets/js/vendor`.
+
+Then add some aliases to your `webpack.mix.js` file:
+
+```javascript
+const path = require('path')
+
+mix.webpackConfig({
+    resolve: {
+        alias: {
+            'filepicker': path.join(__dirname, './resources/assets/js/vendor/filepicker'),
+            'filepicker-ui': path.join(__dirname, './resources/assets/js/vendor/filepicker-ui'),
+            'filepicker-drop': path.join(__dirname, './resources/assets/js/vendor/filepicker-drop'),
+            'filepicker-crop': path.join(__dirname, './resources/assets/js/vendor/filepicker-crop'),
+            'filepicker-camera': path.join(__dirname, './resources/assets/js/vendor/filepicker-camera'),
+        }
+    }
+})
+```
+
+Now you can import the Filepicker files like this:
+
+```javascript
+import 'filepicker'
+import 'filepicker-ui'
+import 'filepicker-drop'
+import 'filepicker-crop'
+import 'filepicker-camera'
+```
+
