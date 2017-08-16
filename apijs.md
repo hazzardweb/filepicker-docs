@@ -73,7 +73,7 @@ Event fired on upload fail.
  * @param {Object} e
  * @param {Object} data
  */
-.on('done.filepicker', function (e, data) {
+.on('fail.filepicker', function (e, data) {
     alert(data.errorThrown);
 })
 ```
