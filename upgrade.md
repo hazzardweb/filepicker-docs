@@ -1,8 +1,8 @@
 # Upgrade Guide
 
 - [Git Changes](#git-changes)
-- [Upgrading To 2.0.1](#upgrading-to-201)
 - [Upgrading To 2.0.2](#upgrading-to-202)
+- [Upgrading To 2.0.1](#upgrading-to-201)
 
 ## Git Changes
 
