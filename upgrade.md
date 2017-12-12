@@ -2,10 +2,16 @@
 
 - [Git Changes](#git-changes)
 - [Upgrading To 2.0.1](#upgrading-to-201)
+- [Upgrading To 2.0.2](#upgrading-to-202)
 
 ## Git Changes
 
 You can view the all the changes on [git.hazzardweb.com](http://git.hazzardweb.com) by logging in with your Envato account.
+
+## Upgrading To 2.0.2
+
+- Replace `uploader/src/BaseHandler.php`
+- Replace `uploader/src/BaseUploader.php`
 
 ## Upgrading To 2.0.1
 
