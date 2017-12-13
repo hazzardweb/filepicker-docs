@@ -1,5 +1,9 @@
 # Release Notes
 
+## v2.0.3 (2017-12-13)
+
+- Fixed bug introduced in the last update
+
 ## v2.0.2 (2017-12-12)
 
 - Fixed transparent PNG images
