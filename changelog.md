@@ -1,5 +1,9 @@
 # Release Notes
 
+## v2.0.4 (2018-01-05)
+
+- Detect https for the default `script_url`
+
 ## v2.0.3 (2017-12-13)
 
 - Fixed bug introduced in the last update
