@@ -153,6 +153,7 @@ If you want to position the watermark somewhere else make sure to read the docs 
 ## Save to Database
 
 This example will show how to save files for a specified user. This could also be a page id or some other identifier for which you want to attach files to.
+
 You will need a table for the files, a library to interact with the database and the id of the current user (for this example). 
 
 For the database table let's let's use MySQL:
@@ -169,7 +170,7 @@ CREATE TABLE `files` (
 ```
 The `user_id` you could use something else, like a `post_id`, `customer_id` etc.
 
-Next you'll create a simple [PDO](http://php.net/manual/en/book.pdo.php) connection, but you could use your dedicated database library:
+Next we'll create a simple [PDO](http://php.net/manual/en/book.pdo.php) connection, but you could use your own database library:
 
 ```php
 // uploader/index.php
@@ -184,7 +185,7 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ```
 
 To save the files to database, use the [upload.success](apiphp.md#upload.success) event. 
-Here you'll need that user id that you can either use the [data](configjs.md#data) option or via the the session.
+Here you'll need the user id that you can either send it via [data](configjs.md#data) option or the session.
 
 ```php
 $handler->on('upload.success', function ($file) use ($db) {
