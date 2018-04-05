@@ -6,6 +6,7 @@
 - [Filter Files](#filter-files)
 - [Send Data to Server](#send-data-to-server)
 - [Insert Watermark](#insert-watermark)
+- [Save to Database](#save-to-database)
 
 ## Rename Files
 
@@ -148,3 +149,80 @@ $config['image_versions.thumb.after'] = $watermark;
 ```
 
 If you want to position the watermark somewhere else make sure to read the docs for the [insert](http://image.intervention.io/api/insert) method. 
+
+## Save to Database
+
+This example will show how to save files for a specified user. This could also be a page id or some other identifier for which you want to attach files to.
+You will need a table for the files, a library to interact with the database and the id of the current user (for this example). 
+
+For the database table let's let's use MySQL:
+
+```mysql
+CREATE TABLE `files` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `file_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mime_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `size` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+The `user_id` you could use something else, like a `post_id`, `customer_id` etc.
+
+Next you'll create a simple [PDO](http://php.net/manual/en/book.pdo.php) connection, but you could use your dedicated database library:
+
+```php
+// uploader/index.php
+
+$host = 'localhost';
+$username = 'root';
+$password = 'secret';
+$dbname = 'filepicker';
+
+$db = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+```
+
+To save the files to database, use the [upload.success](apiphp.md#upload.success) event. 
+Here you'll need that user id that you can either use the [data](configjs.md#data) option or via the the session.
+
+```php
+$handler->on('upload.success', function ($file) use ($db) {
+    // Here you may use $_POST['user_id'], $_SESSION['user_id'] etc. to ge the id of the user.
+    $userId = 1;
+
+    $db->prepare('INSERT INTO `files` (`user_id`, `file_name`, `mime_type`, `size`) VALUES (?, ?, ?, ?)')
+        ->execute([$userId, $file->getFilename(), $file->getMimeType(), $file->getSize()]);
+    
+    // Set the id to be available on the client side via file.data.id
+    $file->data = ['id' => $db->lastInsertId()];
+});     
+```
+
+To only fetch files for a specified user use the [files.fetch](apiphp.md#files.fetch) event:
+
+```php
+$handler->on('files.fetch', function (&$files) use ($db) {
+    $userId = 1;
+
+    $stmt = $db->prepare('SELECT * FROM `files` WHERE `user_id` = ?');
+    $stmt->execute([$userId]);
+    $data = $stmt->fetchAll(PDO::FETCH_CLASS);
+
+    // Return the file names
+    $files = array_map(function ($file) {
+        return $file->file_name;
+    }, $data);
+});
+```
+
+To delete a file from database use the  [file.delete](apiphp.md#file.delete) event:
+
+```php
+$handler->on('file.delete', function ($file) use ($db) {
+    $userId = 1;
+
+    $stmt = $db->prepare('DELETE FROM `files` WHERE `user_id` = ? AND `file_name` = ?');
+    $stmt->execute([$userId, $file->getFilename()]);
+});
+```
