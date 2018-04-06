@@ -205,15 +205,22 @@ To only fetch files for a specified user use the [files.fetch](apiphp.md#files.f
 ```php
 $handler->on('files.fetch', function (&$files) use ($db) {
     $userId = 1;
+    $limit = (int) $_GET['limit'];
+    $offset = (int) $_GET['offset'];
 
-    $stmt = $db->prepare('SELECT * FROM `files` WHERE `user_id` = ?');
+    // Fetch files
+    $stmt = $db->prepare("SELECT * FROM `files` WHERE `user_id` = ? LIMIT $limit OFFSET $offset");
     $stmt->execute([$userId]);
     $data = $stmt->fetchAll(PDO::FETCH_CLASS);
 
-    // Return the file names
-    $files = array_map(function ($file) {
-        return $file->file_name;
-    }, $data);
+    $files = array_map(function ($file) { return $file->file_name; }, $data);
+
+    // Fetch the total number of files
+    $stmt = $db->prepare('SELECT count(id) as aggregate FROM `files` WHERE `user_id` = ?');
+    $stmt->execute([$userId]);
+    $data = $stmt->fetchAll(PDO::FETCH_CLASS);
+
+    $total = isset($data[0]->aggregate) ? $data[0]->aggregate : 0;
 });
 ```
 
