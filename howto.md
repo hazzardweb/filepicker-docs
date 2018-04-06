@@ -203,7 +203,7 @@ $handler->on('upload.success', function ($file) use ($db) {
 To only fetch files for a specified user use the [files.fetch](apiphp.md#files.fetch) event:
 
 ```php
-$handler->on('files.fetch', function (&$files) use ($db) {
+$handler->on('files.fetch', function (&$files, &$total) use ($db) {
     $userId = 1;
     $limit = (int) $_GET['limit'];
     $offset = (int) $_GET['offset'];
