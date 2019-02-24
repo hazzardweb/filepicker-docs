@@ -1,5 +1,11 @@
 # Release Notes
 
+## v2.0.5 (2019-02-24)
+
+- Fixed camera plugin.
+- Fixed crop plugin.
+- Fixed `script_url`.
+
 ## v2.0.4 (2018-01-05)
 
 - Detect https for the default `script_url`
