@@ -101,6 +101,8 @@ Whether to upload multiple files in a single request.
 - Type: _Boolean_
 - Default: `false`
 
+When this is enabled you should not have a "Cancel" button for each file in the ui, because canceling one file will cancel the entire request with all the files. 
+
 ### uploadMultipleLimit
 
 The number of files to upload when uploading multiple files in one request.
