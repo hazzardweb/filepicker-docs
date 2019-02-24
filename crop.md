@@ -202,6 +202,13 @@ The jQuery object for the loading alert.
 - Type: _jQuery Object_
 - Default: `container.find('.crop-loading')`
 
+### checkCrossOrigin
+
+- Type: _Boolean_
+- Default: `true`
+
+Check if the current image is a cross-origin image.
+
 For more options see [Cropper](https://github.com/fengyuanchen/cropper#options).
 
 ### selectors
