@@ -1,5 +1,9 @@
 # Release Notes
 
+## 2.0.6 (2021-04-10)
+
+- Added support for PHP 8.0.
+
 ## v2.0.5 (2019-02-24)
 
 - Fixed camera plugin.

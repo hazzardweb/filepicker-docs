@@ -23,7 +23,7 @@
 
 - Integration
     - [Yii 2](yii2.md)
-    - [Laravel 5](laravel.md)
+    - [Laravel](laravel.md)
     - [CakePHP 3](cakephp.md)
     - [CodeIgniter 3](codeigniter.md)
     - [Zend Framework 2](zf2.md)

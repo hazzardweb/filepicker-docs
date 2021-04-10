@@ -1,6 +1,6 @@
 # Laravel 5 Integration
 
-To integrate __Filepicker__ with [Laravel 5](http://laravel.com/) follow these steps:
+To integrate __Filepicker__ with [Laravel](https://laravel.com) follow these steps:
 
 Copy the `assets` folder to your Laravel `public` directory and the `uploader` folder into your `app` directory.
 
@@ -26,14 +26,14 @@ Create a `FilepickerController` controller and add:
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller;
 
 use Hazzard\Filepicker\Handler;
 use Hazzard\Filepicker\Uploader;
 use Intervention\Image\ImageManager;
 use Hazzard\Config\Repository as Config;
 
-class FilepickerController extends BaseController
+class FilepickerController extends Controller
 {
 	/**
 	 * @var \Hazzard\Filepicker\Handler
