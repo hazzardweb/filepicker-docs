@@ -1,5 +1,9 @@
 # Release Notes
 
+## 2.0.7 (2021-10-01)
+
+- Update jQuery dependency.
+
 ## 2.0.6 (2021-04-10)
 
 - Added support for PHP 8.0.
